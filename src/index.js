@@ -59,20 +59,77 @@ function Card(props) {
     return <div className="card">{props.children}</div>
 }
 
+
+// function App() {
+//     return (
+//         <div>
+//             <Greeting name="Leia Organa" anotherProp="another value" />
+//             <Greeting name="Luke Skywalker" />
+//             <Card>
+//                 <img src="http://placekitten.com/480/480" />
+//             </Card>
+//             <Card>
+//                 Hello!
+//             </Card>
+//         </div>
+//     )
+// }
+
+function FormattedDateTime(props) {
+    return <h2>It is {props.date.toLocaleTimeString()}</h2>
+}
+
+class Clock extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            date: new Date(),
+            anotherField: "a",
+            yetAnotherField: "b"
+        }
+    }
+
+    componentDidMount() {
+        this.timerId = setInterval(
+            () => this.tick(),
+            1000
+        )
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId)
+    }
+
+    tick() {
+        this.setState({
+            date: new Date()
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>This is a clock</h1>
+                <FormattedDateTime date={this.state.date} />
+            </div>
+        )
+    }
+}
+
 function App() {
     return (
         <div>
-            <Greeting name="Leia Organa" anotherProp="another value" />
-            <Greeting name="Luke Skywalker" />
-            <Card>
-                <img src="http://placekitten.com/480/480" />
-            </Card>
-            <Card>
-                Hello!
-            </Card>
+            <Clock />
         </div>
     )
 }
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<App />)
+
+// function tick() {
+//     root.render(<Clock />)
+// }
+
+// setInterval(tick, 1000)
